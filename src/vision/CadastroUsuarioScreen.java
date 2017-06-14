@@ -53,6 +53,11 @@ public class CadastroUsuarioScreen extends javax.swing.JFrame {
         jLabelSenha.setText("Senha:");
 
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +167,12 @@ public class CadastroUsuarioScreen extends javax.swing.JFrame {
         user.setSenha(jPasswordFieldSenha.getText());
         dao.create(user);
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        PrincipalScreen principalScreen = new PrincipalScreen();
+        principalScreen.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments

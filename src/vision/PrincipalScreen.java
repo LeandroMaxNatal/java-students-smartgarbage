@@ -27,6 +27,7 @@ public class PrincipalScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
         jLabel1 = new javax.swing.JLabel();
         jInternalFrameBemVindo = new javax.swing.JInternalFrame();
         jLabel3 = new javax.swing.JLabel();
@@ -39,6 +40,10 @@ public class PrincipalScreen extends javax.swing.JFrame {
         jMenuItemTelaBemVindo = new javax.swing.JMenuItem();
         jMenuExit = new javax.swing.JMenu();
         jMenuItemExit = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -108,6 +113,18 @@ public class PrincipalScreen extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuExit);
 
+        jMenu2.setText("Navegação");
+
+        jMenuItem2.setText("Tela da Lixeira");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         setSize(new java.awt.Dimension(626, 422));
@@ -133,6 +150,12 @@ public class PrincipalScreen extends javax.swing.JFrame {
         principalScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItemTelaBemVindoActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        LixeiraScreen telaLixeira = new LixeiraScreen();
+        telaLixeira.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,11 +197,14 @@ public class PrincipalScreen extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jInternalFrameBemVindo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuEdit;
     private javax.swing.JMenu jMenuExit;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemTelaBemVindo;
     private javax.swing.JPanel jPanel1;
