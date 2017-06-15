@@ -6,6 +6,7 @@
 package vision;
 
 import javax.swing.JOptionPane;
+import model.dao.UsuarioDAO;
 
 /**
  *
@@ -130,17 +131,17 @@ public class loginScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcessarActionPerformed
-        // Verifica se o usuario existe
-        if( jTextFieldUsuario.getText().equals("admin")&& jPasswordFieldSenha.getText().equals("123"))
+        UsuarioDAO dao = new UsuarioDAO();
+        if(dao.checkLogin(jTextFieldUsuario.getText(), jPasswordFieldSenha.getText()))
         {
-            PrincipalScreen principalScreen  = new PrincipalScreen();
-            principalScreen.setVisible(true);
-            dispose();
+            new PrincipalScreen().setVisible(true);
+            this.dispose();
         }
         else
         {
-            JOptionPane.showMessageDialog(rootPane, "Dados invalidos");
+            JOptionPane.showMessageDialog(null, "Usuario Invalido!");
         }
+        
     }//GEN-LAST:event_jButtonAcessarActionPerformed
 
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
