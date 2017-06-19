@@ -5,7 +5,9 @@
  */
 package vision;
 
+import javax.swing.JOptionPane;
 import model.bean.Lixeira;
+import model.bean.Usuario;
 import model.dao.LixeiraDAO;
 
 /**
@@ -13,14 +15,20 @@ import model.dao.LixeiraDAO;
  * @author Leandro Max
  */
 public class CriaLixeiraScreen extends javax.swing.JFrame {
-
+    Usuario activeUser;
     /**
      * Creates new form CriaLixeiraScreen
      */
     public CriaLixeiraScreen() {
         initComponents();
     }
-
+    
+    public CriaLixeiraScreen(Usuario activeUser)
+    {
+        initComponents();
+        this.activeUser = new Usuario();
+        this.activeUser = activeUser;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,7 +39,6 @@ public class CriaLixeiraScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabelCapacidadeLixeira = new javax.swing.JLabel();
         jLabelLatitude = new javax.swing.JLabel();
         jTextFieldCapacidade = new javax.swing.JTextField();
@@ -40,11 +47,12 @@ public class CriaLixeiraScreen extends javax.swing.JFrame {
         jTextFieldLongitude = new javax.swing.JTextField();
         jButtonLimpar = new javax.swing.JButton();
         jButtonCadastrarLixeira = new javax.swing.JButton();
+        jbVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Criador de lixeiras");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de Lixeira"));
 
         jLabelCapacidadeLixeira.setText("Digite a capacidade da lixeira em litros ( de 10 a 20 )litros:");
 
@@ -66,46 +74,59 @@ public class CriaLixeiraScreen extends javax.swing.JFrame {
             }
         });
 
+        jbVoltar.setText("Voltar");
+        jbVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jTextFieldLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jLabelCapacidadeLixeira, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jTextFieldLatitude))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addContainerGap()
+                                            .addComponent(jTextFieldCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addContainerGap()
+                                            .addComponent(jLabelLatitude)))
+                                    .addGap(119, 119, 119)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabelLongitude))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabelCapacidadeLixeira))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jTextFieldCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonCadastrarLixeira)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonLimpar))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(20, 20, 20)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextFieldLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelLatitude)
-                                .addComponent(jLabelLongitude)
-                                .addComponent(jTextFieldLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel1)))
-                .addGap(85, 85, 85))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonCadastrarLixeira, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButtonLimpar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jbVoltar)))))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(27, 27, 27)
                 .addComponent(jLabelCapacidadeLixeira)
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelLatitude)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -114,30 +135,18 @@ public class CriaLixeiraScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonCadastrarLixeira, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCadastrarLixeira, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonLimpar))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jButtonLimpar)
+                    .addComponent(jbVoltar))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(3, -2, 360, 300);
 
-        setSize(new java.awt.Dimension(359, 324));
+        setSize(new java.awt.Dimension(384, 342));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -157,10 +166,37 @@ public class CriaLixeiraScreen extends javax.swing.JFrame {
         lixeira.setLongitude(jTextFieldLongitude.getText());
         
         // Insert a new lixeira in Database
-        lixeiraDAO.create(lixeira);
-        // Limpa os dados digitados.
-        jButtonLimpar.doClick();
+        if(lixeiraDAO.create(lixeira))
+        {
+            int reply = JOptionPane.showConfirmDialog(null, "Deseja Cadastrar outra lixeira?");
+            if(reply == JOptionPane.YES_OPTION)
+            {
+                jButtonLimpar.doClick();
+            }
+            else if(reply == JOptionPane.NO_OPTION)
+            {
+                // Chama a tela principal passando o usuario ativo.
+                PrincipalScreen viewPrincipalScreen = new PrincipalScreen(activeUser);
+                viewPrincipalScreen.setVisible(true);
+                this.dispose();
+            }
+            else if(reply == JOptionPane.CANCEL_OPTION)
+            {
+                jbVoltar.doClick();
+            }
+        }
+        else
+        {
+            jButtonLimpar.doClick();
+        }
+        
     }//GEN-LAST:event_jButtonCadastrarLixeiraActionPerformed
+
+    private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed
+        PrincipalScreen viewPrincipalScreen = new PrincipalScreen(activeUser);
+        viewPrincipalScreen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,7 +236,6 @@ public class CriaLixeiraScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCadastrarLixeira;
     private javax.swing.JButton jButtonLimpar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelCapacidadeLixeira;
     private javax.swing.JLabel jLabelLatitude;
     private javax.swing.JLabel jLabelLongitude;
@@ -208,5 +243,6 @@ public class CriaLixeiraScreen extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldCapacidade;
     private javax.swing.JTextField jTextFieldLatitude;
     private javax.swing.JTextField jTextFieldLongitude;
+    private javax.swing.JButton jbVoltar;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,7 +17,7 @@ import model.dao.UsuarioDAO;
 public class LixeiraScreen extends javax.swing.JFrame {
 
     Usuario user;
-    
+    private Usuario activeUser;
     /**
      * Creates new form LixeiraScreen
      */
@@ -29,9 +29,26 @@ public class LixeiraScreen extends javax.swing.JFrame {
         
         for( Lixeira l: lixeiraDAO.read())
         {
-            jComboBoxLixeiras.addItem(l);
-              
+            jComboBoxLixeiras.addItem(l);  
         }
+    }
+    
+    // Contrutor 2
+    public LixeiraScreen(Usuario activeUser)
+    {
+        initComponents();
+        this.activeUser = new Usuario();
+        this.activeUser = activeUser;
+        LixeiraDAO lixeiraDAO = new LixeiraDAO();
+        
+        // Preenche as caixas de seleção com as lixeiras disponíveis
+        for( Lixeira l: lixeiraDAO.read())
+        {
+            jComboBoxLixeiras.addItem(l);     
+        }
+        jlUsuarioNome.setText(this.activeUser.getNome());
+        jlPontuacaoUsuario.setText(Integer.toString(this.activeUser.getPontuacao()));
+        jftfCelular.setText(this.activeUser.getCelular());
     }
 
     /**
@@ -56,15 +73,17 @@ public class LixeiraScreen extends javax.swing.JFrame {
         jPanelDadosUsuario = new javax.swing.JPanel();
         jButtonCarregarUsuario = new javax.swing.JButton();
         jLabelDigiteCelular = new javax.swing.JLabel();
-        jFormattedTextFieldCelular = new javax.swing.JFormattedTextField();
-        jLabelNomeUsuario = new javax.swing.JLabel();
-        jLabelUsuario = new javax.swing.JLabel();
-        jLabelPontuação = new javax.swing.JLabel();
-        jLabelPontuacaoNome = new javax.swing.JLabel();
+        jftfCelular = new javax.swing.JFormattedTextField();
+        jlUsuarioNome = new javax.swing.JLabel();
+        jlUsuario = new javax.swing.JLabel();
+        jlPontuacao = new javax.swing.JLabel();
+        jlPontuacaoUsuario = new javax.swing.JLabel();
         jPanelDadosdoLixo = new javax.swing.JPanel();
         jComboBoxTipoDeLixo = new javax.swing.JComboBox<>();
         jLabelTipoDoLixo = new javax.swing.JLabel();
         btCadastrarLixo = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jbVoltar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -72,11 +91,12 @@ public class LixeiraScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(300, 300));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setLayout(null);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Interface da Lixeira");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(87, 0, -1, -1));
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(130, 0, 133, 17);
 
         jPanelDadosLixeira.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Lixeira"));
 
@@ -140,7 +160,8 @@ public class LixeiraScreen extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanelDadosLixeira, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, 370, 120));
+        jPanel1.add(jPanelDadosLixeira);
+        jPanelDadosLixeira.setBounds(10, 28, 370, 120);
 
         jPanelDadosUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Usuário"));
 
@@ -154,15 +175,14 @@ public class LixeiraScreen extends javax.swing.JFrame {
         jLabelDigiteCelular.setText("Digite o celular do Usuário: ");
 
         try {
-            jFormattedTextFieldCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            jftfCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextFieldCelular.setText("(84)98831-3233");
 
-        jLabelUsuario.setText("Usuário:");
+        jlUsuario.setText("Usuário:");
 
-        jLabelPontuação.setText("Pontuação:");
+        jlPontuacao.setText("Pontuação:");
 
         javax.swing.GroupLayout jPanelDadosUsuarioLayout = new javax.swing.GroupLayout(jPanelDadosUsuario);
         jPanelDadosUsuario.setLayout(jPanelDadosUsuarioLayout);
@@ -172,20 +192,20 @@ public class LixeiraScreen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDadosUsuarioLayout.createSequentialGroup()
-                        .addComponent(jFormattedTextFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                        .addComponent(jftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                         .addComponent(jButtonCarregarUsuario))
                     .addGroup(jPanelDadosUsuarioLayout.createSequentialGroup()
                         .addGroup(jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelDigiteCelular)
                             .addGroup(jPanelDadosUsuarioLayout.createSequentialGroup()
-                                .addComponent(jLabelUsuario)
+                                .addComponent(jlUsuario)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jlUsuarioNome, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelDadosUsuarioLayout.createSequentialGroup()
-                                .addComponent(jLabelPontuação)
+                                .addComponent(jlPontuacao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelPontuacaoNome)))
+                                .addComponent(jlPontuacaoUsuario)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -196,20 +216,21 @@ public class LixeiraScreen extends javax.swing.JFrame {
                 .addComponent(jLabelDigiteCelular)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedTextFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jftfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCarregarUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelUsuario)
-                    .addComponent(jLabelNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlUsuario)
+                    .addComponent(jlUsuarioNome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelPontuação)
-                    .addComponent(jLabelPontuacaoNome))
+                    .addComponent(jlPontuacao)
+                    .addComponent(jlPontuacaoUsuario))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanelDadosUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 147, 370, -1));
+        jPanel1.add(jPanelDadosUsuario);
+        jPanelDadosUsuario.setBounds(10, 147, 370, 150);
 
         jPanelDadosdoLixo.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Lixo"));
 
@@ -255,7 +276,34 @@ public class LixeiraScreen extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanelDadosdoLixo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 370, 120));
+        jPanel1.add(jPanelDadosdoLixo);
+        jPanelDadosdoLixo.setBounds(10, 320, 370, 120);
+
+        jbVoltar.setText("Voltar");
+        jbVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVoltarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbVoltar)
+                .addContainerGap(289, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jbVoltar)
+                .addGap(0, 27, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(20, 450, 360, 50);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -267,7 +315,7 @@ public class LixeiraScreen extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(411, 526));
+        setSize(new java.awt.Dimension(411, 623));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -287,28 +335,32 @@ public class LixeiraScreen extends javax.swing.JFrame {
 
     private void jButtonCarregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarregarUsuarioActionPerformed
         UsuarioDAO dao = new UsuarioDAO();
-        //Usuario usuario = new Usuario();
-        String tel = jFormattedTextFieldCelular.getText();
+        
+        String tel = jftfCelular.getText();
         tel = tel.replace("(","");
         tel = tel.replace(")","");
         tel = tel.replace("-","");
         tel = tel.replace(" ","");
-        user = dao.getUserByTel(tel);
-        jLabelNomeUsuario.setText(user.getNome());
-        jLabelPontuacaoNome.setText(Integer.toString(user.getPontuacao()));
-        //jLabelNomeUsuario.setText(dao.getUserByTelephone(tel).getCelular());
-        //Usuario user = new Usuario(dao.getUserByTelephone(tel));
-        //jLabelNomeUsuario.setText(usuario.getNome());
-        //jLabelPontuacaoNome.setText(Integer.toString(usuario.getPontuacao()));
-        //user = new dao.getUserByTelephone(tel);
-        
+ 
+        activeUser = dao.getUserByTel(tel);
+        jlUsuarioNome.setText(activeUser.getNome());
+        jlPontuacaoUsuario.setText(Integer.toString(activeUser.getPontuacao()));
+        //user = dao.getUserByTel(tel);
+        //jlUsuarioNome.setText(user.getNome());
+        //jlPontuacaoUsuario.setText(Integer.toString(user.getPontuacao())); 
     }//GEN-LAST:event_jButtonCarregarUsuarioActionPerformed
 
     private void btCadastrarLixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarLixoActionPerformed
         UsuarioDAO dao = new UsuarioDAO();
-        dao.atualizaPontuação(user);
-        
+        dao.updateScore(activeUser.getId(),activeUser.getPontuacao());
+        jButtonCarregarUsuario.doClick();
     }//GEN-LAST:event_btCadastrarLixoActionPerformed
+
+    private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed
+        PrincipalScreen viewPrincipalScreen = new PrincipalScreen(activeUser);
+        viewPrincipalScreen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -351,24 +403,26 @@ public class LixeiraScreen extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCarregarUsuario;
     private javax.swing.JComboBox<Object> jComboBoxLixeiras;
     private javax.swing.JComboBox<String> jComboBoxTipoDeLixo;
-    private javax.swing.JFormattedTextField jFormattedTextFieldCelular;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelCapUtil;
     private javax.swing.JLabel jLabelCapUtilizada;
     private javax.swing.JLabel jLabelDigiteCelular;
-    private javax.swing.JLabel jLabelNomeUsuario;
-    private javax.swing.JLabel jLabelPontuacaoNome;
-    private javax.swing.JLabel jLabelPontuação;
     private javax.swing.JLabel jLabelSelecionarLixeira;
     private javax.swing.JLabel jLabelTipoDoLixo;
-    private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelDadosLixeira;
     private javax.swing.JPanel jPanelDadosUsuario;
     private javax.swing.JPanel jPanelDadosdoLixo;
+    private javax.swing.JButton jbVoltar;
+    private javax.swing.JFormattedTextField jftfCelular;
+    private javax.swing.JLabel jlPontuacao;
+    private javax.swing.JLabel jlPontuacaoUsuario;
+    private javax.swing.JLabel jlUsuario;
+    private javax.swing.JLabel jlUsuarioNome;
     private javax.swing.JLabel lbCapacidadeTotal;
     private javax.swing.JLabel lbCapacidadeTotalResult;
     // End of variables declaration//GEN-END:variables

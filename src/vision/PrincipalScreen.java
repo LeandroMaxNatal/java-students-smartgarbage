@@ -5,18 +5,31 @@
  */
 package vision;
 
+import model.bean.Usuario;
+
 /**
  *
  * @author Leandro Max
  */
 public class PrincipalScreen extends javax.swing.JFrame {
 
+    private Usuario activeUser;
     /**
-     * Creates new form PrincipalScreen
+     * Creates new form Princ
+     * ipalScreen
+     * @param activeUser
      */
+    public PrincipalScreen(Usuario activeUser) {
+        initComponents();
+        this.activeUser = new Usuario();
+        this.activeUser = activeUser;
+        jlNomeUsuario.setText(this.activeUser.getNome());
+        jlPontuacaoUsuario.setText(Integer.toString(this.activeUser.getPontuacao()));
+    }
+    
     public PrincipalScreen() {
         initComponents();
-    }
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,16 +41,15 @@ public class PrincipalScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
-        jLabel1 = new javax.swing.JLabel();
-        jInternalFrameBemVindo = new javax.swing.JInternalFrame();
+        jPanel2 = new javax.swing.JPanel();
+        jlNome = new javax.swing.JLabel();
+        jlNomeUsuario = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jButtonFecharBemVindo = new javax.swing.JButton();
+        jlPontuacaoUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuEdit = new javax.swing.JMenu();
-        jMenuItemTelaBemVindo = new javax.swing.JMenuItem();
+        jmiCadastrarLixeira = new javax.swing.JMenuItem();
         jMenuExit = new javax.swing.JMenu();
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -48,34 +60,23 @@ public class PrincipalScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jLabel1.setText("Tela Principal");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(302, 109, 62, 14);
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuário"));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jInternalFrameBemVindo.setTitle("Bem Vindo");
-        jInternalFrameBemVindo.setVisible(true);
-        jInternalFrameBemVindo.getContentPane().setLayout(null);
+        jlNome.setText("Nome:");
+        jPanel2.add(jlNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/addUser.jpg"))); // NOI18N
-        jInternalFrameBemVindo.getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 0, 260, 256);
+        jlNomeUsuario.setText("jLabel2");
+        jPanel2.add(jlNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setLayout(null);
-        jInternalFrameBemVindo.getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 70, 600, 200);
+        jLabel3.setText("Pontuação:");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        jButtonFecharBemVindo.setText("Fechar");
-        jButtonFecharBemVindo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFecharBemVindoActionPerformed(evt);
-            }
-        });
-        jInternalFrameBemVindo.getContentPane().add(jButtonFecharBemVindo);
-        jButtonFecharBemVindo.setBounds(500, 10, 65, 23);
+        jlPontuacaoUsuario.setText("jLabel4");
+        jPanel2.add(jlPontuacaoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
 
-        getContentPane().add(jInternalFrameBemVindo);
-        jInternalFrameBemVindo.setBounds(10, 90, 590, 270);
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 0, 230, 100);
 
         jMenuFile.setText("File");
 
@@ -87,19 +88,15 @@ public class PrincipalScreen extends javax.swing.JFrame {
         });
         jMenuFile.add(jMenuItem1);
 
-        jMenuBar1.add(jMenuFile);
-
-        jMenuEdit.setText("Ferramentas");
-
-        jMenuItemTelaBemVindo.setText("Tela Bem-Vindo");
-        jMenuItemTelaBemVindo.addActionListener(new java.awt.event.ActionListener() {
+        jmiCadastrarLixeira.setText("Cadastrar Lixeira");
+        jmiCadastrarLixeira.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemTelaBemVindoActionPerformed(evt);
+                jmiCadastrarLixeiraActionPerformed(evt);
             }
         });
-        jMenuEdit.add(jMenuItemTelaBemVindo);
+        jMenuFile.add(jmiCadastrarLixeira);
 
-        jMenuBar1.add(jMenuEdit);
+        jMenuBar1.add(jMenuFile);
 
         jMenuExit.setText("Exit");
 
@@ -115,7 +112,7 @@ public class PrincipalScreen extends javax.swing.JFrame {
 
         jMenu2.setText("Navegação");
 
-        jMenuItem2.setText("Tela da Lixeira");
+        jMenuItem2.setText("Interface da Lixeira");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -127,35 +124,33 @@ public class PrincipalScreen extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(626, 422));
+        setSize(new java.awt.Dimension(250, 160));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        CadastroUsuarioScreen cadastroUsuarioScreen = new CadastroUsuarioScreen();
+        CadastroUsuarioScreen cadastroUsuarioScreen = new CadastroUsuarioScreen(activeUser);
         cadastroUsuarioScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jButtonFecharBemVindoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharBemVindoActionPerformed
-        jInternalFrameBemVindo.dispose();
-    }//GEN-LAST:event_jButtonFecharBemVindoActionPerformed
 
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
         System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
-    private void jMenuItemTelaBemVindoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTelaBemVindoActionPerformed
-        PrincipalScreen principalScreen = new PrincipalScreen();
-        principalScreen.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jMenuItemTelaBemVindoActionPerformed
-
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        LixeiraScreen telaLixeira = new LixeiraScreen();
-        telaLixeira.setVisible(true);
+        
+        //LixeiraScreen telaLixeira = new LixeiraScreen();
+        LixeiraScreen viewInterfaceLixeira = new LixeiraScreen(activeUser);
+        viewInterfaceLixeira.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jmiCadastrarLixeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarLixeiraActionPerformed
+        CriaLixeiraScreen viewCadastroLixeira = new CriaLixeiraScreen(activeUser);
+        viewCadastroLixeira.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jmiCadastrarLixeiraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,7 +178,7 @@ public class PrincipalScreen extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PrincipalScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -193,20 +188,19 @@ public class PrincipalScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonFecharBemVindo;
-    private javax.swing.JInternalFrame jInternalFrameBemVindo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuEdit;
     private javax.swing.JMenu jMenuExit;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemExit;
-    private javax.swing.JMenuItem jMenuItemTelaBemVindo;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jlNome;
+    private javax.swing.JLabel jlNomeUsuario;
+    private javax.swing.JLabel jlPontuacaoUsuario;
+    private javax.swing.JMenuItem jmiCadastrarLixeira;
     // End of variables declaration//GEN-END:variables
 }

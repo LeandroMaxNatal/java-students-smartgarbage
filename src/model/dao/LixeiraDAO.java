@@ -14,11 +14,11 @@ import model.bean.Lixeira;
 
 public class LixeiraDAO 
 {
-    public void create(Lixeira lixeira)
+    public boolean create(Lixeira lixeira)
     {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-        
+        boolean check = false;
         try {
             stmt = con.prepareStatement("INSERT INTO lixeiras (capacidade_total,capacidade_utilizada,latitude,longitude) VALUES (?,?,?,?)");
             stmt.setInt(1, lixeira.getCapacidadeTotal());
@@ -28,6 +28,7 @@ public class LixeiraDAO
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Lixeira Cadastrada com com sucesso");
+            check = true;
         } 
         catch (SQLException ex) 
         {
@@ -37,7 +38,7 @@ public class LixeiraDAO
         {
             ConnectionFactory.closeConnection(con, stmt);
         }
-        
+        return check;
     }
     
     public List<Lixeira> read()
@@ -64,8 +65,13 @@ public class LixeiraDAO
                 
                 lixeiras.add(lixeira);
             }
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) {
             Logger.getLogger(LixeiraDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        finally
+        {
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return lixeiras;
     }

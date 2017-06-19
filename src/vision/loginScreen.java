@@ -6,6 +6,7 @@
 package vision;
 
 import javax.swing.JOptionPane;
+import model.bean.Usuario;
 import model.dao.UsuarioDAO;
 
 /**
@@ -14,6 +15,7 @@ import model.dao.UsuarioDAO;
  */
 public class loginScreen extends javax.swing.JFrame {
 
+    private Usuario usuario;
     /**
      * Creates new form loginScreen
      */
@@ -134,7 +136,9 @@ public class loginScreen extends javax.swing.JFrame {
         UsuarioDAO dao = new UsuarioDAO();
         if(dao.checkLogin(jTextFieldUsuario.getText(), jPasswordFieldSenha.getText()))
         {
-            new PrincipalScreen().setVisible(true);
+            usuario = new Usuario();
+            usuario = dao.getUser(jTextFieldUsuario.getText(), jPasswordFieldSenha.getText());
+            new PrincipalScreen(usuario).setVisible(true);
             this.dispose();
         }
         else

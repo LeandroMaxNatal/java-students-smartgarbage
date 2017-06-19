@@ -56,15 +56,19 @@ public class UsuarioDAO
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally
+        {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
         return check;
     }
     
-    public Usuario getUserByTelephone()
-    {
-        Usuario user = new Usuario();
-        user.setNome("Leandro");
-        return user;
-    }
+   // public Usuario getUserByTelephone()
+    //{
+      //  Usuario user = new Usuario();
+      //  user.setNome("Leandro");
+      //  return user;
+    //}
     /**
     public Usuario getUserByTelephone(String telephone)
     {
@@ -99,7 +103,7 @@ public class UsuarioDAO
         
         try {
             stmt = con.prepareStatement("SELECT * FROM usuarios WHERE telefone = ?");
-            stmt.setString(1, "84988313233");
+            stmt.setString(1, tel);
             rs = stmt.executeQuery();
             if(rs.next())
             {
@@ -112,24 +116,70 @@ public class UsuarioDAO
             }   
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        finally
+        {
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return user;
     }
     
-    public void atualizaPontuação(Usuario user)
+    public Usuario getUser(String login, String senha)
+    {
+        Connection con = ConnectionFactory.getConnection(); // Faz a conexão com o banco de dados
+        PreparedStatement stmt = null;                      // Armazena a pesquisa
+        ResultSet rs = null;                                // Armazena o resultado da pesquisa
+        boolean check = false;                              // Sera usado para retorno da função
+        Usuario tempUser = new Usuario();
+        
+        try 
+        {
+            stmt = con.prepareStatement("SELECT * FROM usuarios WHERE email = ? AND SENHA = ?");
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
+
+            rs = stmt.executeQuery();
+            
+            if( rs.next() )
+            {
+                tempUser.setId(rs.getInt("id"));
+                tempUser.setNome(rs.getString("nome"));
+                tempUser.setEmail(rs.getString("email"));
+                tempUser.setCelular(rs.getString("telefone"));
+                tempUser.setPontuacao(rs.getInt("pontuacao"));
+            }
+        } 
+        catch(SQLException ex) 
+        {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return tempUser;
+    }
+    
+    public void updateScore(int id, int score)
     {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-        int pontuacao = user.getPontuacao() + 10;
-        System.out.println(Integer.toString(pontuacao));
+        ResultSet rs = null;
+        
+        // Calcula a nova pontuação do usuario
+        int newScore = score + 10;
+        
         try {
-            String sql = "UPDATE usuarios SET pontuacao = '"+ Integer.toString(pontuacao) + "' WHERE id = '" + Integer.toString(user.getId()) + "'";
-            
-            System.out.println(sql);
-            stmt = con.prepareStatement("UPDATE usuarios SET pontuacao = "+ Integer.toString(pontuacao) + " WHERE id = " + Integer.toString(user.getId()));
-            stmt.executeQuery();
+            stmt = con.prepareStatement("UPDATE usuarios SET pontuacao = " + newScore + " WHERE id = " + id);
+            stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }    
+        } 
+        finally
+        {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
     }
+    // End of class UsuarioDao
 }

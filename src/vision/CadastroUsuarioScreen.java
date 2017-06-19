@@ -5,6 +5,7 @@
  */
 package vision;
 
+import javax.swing.JOptionPane;
 import model.bean.Usuario;
 import model.dao.UsuarioDAO;
 
@@ -14,13 +15,20 @@ import model.dao.UsuarioDAO;
  */
 public class CadastroUsuarioScreen extends javax.swing.JFrame {
 
+    private Usuario activeUser;
     /**
      * Creates new form CadastroUsuarioScreen
      */
     public CadastroUsuarioScreen() {
         initComponents();
     }
-
+    
+    public CadastroUsuarioScreen(Usuario activeUser)
+    {
+        initComponents();
+        this.activeUser = new Usuario();
+        this.activeUser = activeUser;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -162,10 +170,14 @@ public class CadastroUsuarioScreen extends javax.swing.JFrame {
         user.setCelular(celular);
         user.setPontuacao(0);
         dao.create(user);
+        //JOptionPane.showMessageDialog(null, "Usuario Criado com sucesso!");
+        PrincipalScreen viewPrincipalScreen = new PrincipalScreen(user);
+        viewPrincipalScreen.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        PrincipalScreen principalScreen = new PrincipalScreen();
+        PrincipalScreen principalScreen = new PrincipalScreen(activeUser);
         principalScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
