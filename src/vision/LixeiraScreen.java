@@ -5,17 +5,33 @@
  */
 package vision;
 
+import model.bean.Lixeira;
+import model.bean.Usuario;
+import model.dao.LixeiraDAO;
+import model.dao.UsuarioDAO;
+
 /**
  *
  * @author Leandro Max
  */
 public class LixeiraScreen extends javax.swing.JFrame {
 
+    Usuario user;
+    
     /**
      * Creates new form LixeiraScreen
      */
     public LixeiraScreen() {
         initComponents();
+        
+        user = new Usuario();
+        LixeiraDAO lixeiraDAO = new LixeiraDAO();
+        
+        for( Lixeira l: lixeiraDAO.read())
+        {
+            jComboBoxLixeiras.addItem(l);
+              
+        }
     }
 
     /**
@@ -28,131 +44,271 @@ public class LixeiraScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabelUsuario = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jComboBoxTipoDeLixo = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jPanelDadosLixeira = new javax.swing.JPanel();
+        jLabelSelecionarLixeira = new javax.swing.JLabel();
+        jComboBoxLixeiras = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
+        jLabelCapUtilizada = new javax.swing.JLabel();
+        jLabelCapUtil = new javax.swing.JLabel();
+        lbCapacidadeTotal = new javax.swing.JLabel();
+        lbCapacidadeTotalResult = new javax.swing.JLabel();
+        jPanelDadosUsuario = new javax.swing.JPanel();
+        jButtonCarregarUsuario = new javax.swing.JButton();
+        jLabelDigiteCelular = new javax.swing.JLabel();
+        jFormattedTextFieldCelular = new javax.swing.JFormattedTextField();
+        jLabelNomeUsuario = new javax.swing.JLabel();
+        jLabelUsuario = new javax.swing.JLabel();
+        jLabelPontuação = new javax.swing.JLabel();
+        jLabelPontuacaoNome = new javax.swing.JLabel();
+        jPanelDadosdoLixo = new javax.swing.JPanel();
+        jComboBoxTipoDeLixo = new javax.swing.JComboBox<>();
+        jLabelTipoDoLixo = new javax.swing.JLabel();
+        btCadastrarLixo = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Digite o celular: ");
+        jPanel1.setPreferredSize(new java.awt.Dimension(300, 300));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setText("digite o celular do usuario");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setText("Interface da Lixeira");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(87, 0, -1, -1));
+
+        jPanelDadosLixeira.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Lixeira"));
+
+        jLabelSelecionarLixeira.setText("Selecione a lixeira:");
+
+        jComboBoxLixeiras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxLixeirasActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Carregar Lixeira");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabelCapUtil.setText("Capacidade Utilizada:");
+
+        lbCapacidadeTotal.setText("Capacidade Total:");
+
+        javax.swing.GroupLayout jPanelDadosLixeiraLayout = new javax.swing.GroupLayout(jPanelDadosLixeira);
+        jPanelDadosLixeira.setLayout(jPanelDadosLixeiraLayout);
+        jPanelDadosLixeiraLayout.setHorizontalGroup(
+            jPanelDadosLixeiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDadosLixeiraLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jLabelCapUtil)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelCapUtilizada)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanelDadosLixeiraLayout.createSequentialGroup()
+                .addGroup(jPanelDadosLixeiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbCapacidadeTotal)
+                    .addComponent(jLabelSelecionarLixeira))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelDadosLixeiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDadosLixeiraLayout.createSequentialGroup()
+                        .addComponent(jComboBoxLixeiras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3))
+                    .addComponent(lbCapacidadeTotalResult))
+                .addGap(0, 112, Short.MAX_VALUE))
+        );
+        jPanelDadosLixeiraLayout.setVerticalGroup(
+            jPanelDadosLixeiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDadosLixeiraLayout.createSequentialGroup()
+                .addGroup(jPanelDadosLixeiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelSelecionarLixeira)
+                    .addComponent(jComboBoxLixeiras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addGap(9, 9, 9)
+                .addGroup(jPanelDadosLixeiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbCapacidadeTotal)
+                    .addComponent(lbCapacidadeTotalResult))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDadosLixeiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelCapUtilizada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelCapUtil))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanelDadosLixeira, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, 370, 120));
+
+        jPanelDadosUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Usuário"));
+
+        jButtonCarregarUsuario.setText("Carregar Usuário");
+        jButtonCarregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCarregarUsuarioActionPerformed(evt);
+            }
+        });
+
+        jLabelDigiteCelular.setText("Digite o celular do Usuário: ");
+
+        try {
+            jFormattedTextFieldCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldCelular.setText("(84)98831-3233");
 
         jLabelUsuario.setText("Usuário:");
 
-        jLabel2.setText("Pontuação:");
+        jLabelPontuação.setText("Pontuação:");
 
-        jButton1.setText("Pesquisar Usuário");
+        javax.swing.GroupLayout jPanelDadosUsuarioLayout = new javax.swing.GroupLayout(jPanelDadosUsuario);
+        jPanelDadosUsuario.setLayout(jPanelDadosUsuarioLayout);
+        jPanelDadosUsuarioLayout.setHorizontalGroup(
+            jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDadosUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDadosUsuarioLayout.createSequentialGroup()
+                        .addComponent(jFormattedTextFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                        .addComponent(jButtonCarregarUsuario))
+                    .addGroup(jPanelDadosUsuarioLayout.createSequentialGroup()
+                        .addGroup(jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelDigiteCelular)
+                            .addGroup(jPanelDadosUsuarioLayout.createSequentialGroup()
+                                .addComponent(jLabelUsuario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelDadosUsuarioLayout.createSequentialGroup()
+                                .addComponent(jLabelPontuação)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelPontuacaoNome)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanelDadosUsuarioLayout.setVerticalGroup(
+            jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDadosUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelDigiteCelular)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFormattedTextFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCarregarUsuario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelUsuario)
+                    .addComponent(jLabelNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDadosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelPontuação)
+                    .addComponent(jLabelPontuacaoNome))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
 
-        jLabel5.setText("Tipo do lixo: ");
+        jPanel1.add(jPanelDadosUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 147, 370, -1));
 
-        jComboBoxTipoDeLixo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Garrafa Pet" }));
+        jPanelDadosdoLixo.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Lixo"));
+
+        jComboBoxTipoDeLixo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:", "Plastico", "Papel", "Vidro", "Metal" }));
         jComboBoxTipoDeLixo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTipoDeLixoActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cadastrar Lixo");
+        jLabelTipoDoLixo.setText("Tipo do lixo: ");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setText("Lixeira Inteligente");
+        btCadastrarLixo.setText("Cadastrar Lixo");
+        btCadastrarLixo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastrarLixoActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton2)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(73, 73, 73)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel3))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1)))
-                            .addComponent(jLabel2)
-                            .addComponent(jLabelUsuario)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxTipoDeLixo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(jLabel6)))
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel6)
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+        javax.swing.GroupLayout jPanelDadosdoLixoLayout = new javax.swing.GroupLayout(jPanelDadosdoLixo);
+        jPanelDadosdoLixo.setLayout(jPanelDadosdoLixoLayout);
+        jPanelDadosdoLixoLayout.setHorizontalGroup(
+            jPanelDadosdoLixoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDadosdoLixoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelDadosdoLixoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDadosdoLixoLayout.createSequentialGroup()
+                        .addComponent(jLabelTipoDoLixo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4))
-                    .addComponent(jButton1))
-                .addGap(12, 12, 12)
-                .addComponent(jLabelUsuario)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                        .addComponent(jComboBoxTipoDeLixo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btCadastrarLixo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelDadosdoLixoLayout.setVerticalGroup(
+            jPanelDadosdoLixoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDadosdoLixoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelDadosdoLixoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTipoDoLixo)
                     .addComponent(jComboBoxTipoDeLixo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btCadastrarLixo)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        jPanel1.add(jPanelDadosdoLixo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 370, 120));
 
-        setSize(new java.awt.Dimension(416, 338));
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
+        setSize(new java.awt.Dimension(411, 526));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxTipoDeLixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoDeLixoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxTipoDeLixoActionPerformed
+
+    private void jComboBoxLixeirasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLixeirasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxLixeirasActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Lixeira lixeira = (Lixeira) jComboBoxLixeiras.getSelectedItem(); 
+        lbCapacidadeTotalResult.setText(Integer.toString(lixeira.getCapacidadeTotal()));
+        jLabelCapUtilizada.setText(Integer.toString(lixeira.getCapacidadeUtilizada()));
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButtonCarregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarregarUsuarioActionPerformed
+        UsuarioDAO dao = new UsuarioDAO();
+        //Usuario usuario = new Usuario();
+        String tel = jFormattedTextFieldCelular.getText();
+        tel = tel.replace("(","");
+        tel = tel.replace(")","");
+        tel = tel.replace("-","");
+        tel = tel.replace(" ","");
+        user = dao.getUserByTel(tel);
+        jLabelNomeUsuario.setText(user.getNome());
+        jLabelPontuacaoNome.setText(Integer.toString(user.getPontuacao()));
+        //jLabelNomeUsuario.setText(dao.getUserByTelephone(tel).getCelular());
+        //Usuario user = new Usuario(dao.getUserByTelephone(tel));
+        //jLabelNomeUsuario.setText(usuario.getNome());
+        //jLabelPontuacaoNome.setText(Integer.toString(usuario.getPontuacao()));
+        //user = new dao.getUserByTelephone(tel);
+        
+    }//GEN-LAST:event_jButtonCarregarUsuarioActionPerformed
+
+    private void btCadastrarLixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarLixoActionPerformed
+        UsuarioDAO dao = new UsuarioDAO();
+        dao.atualizaPontuação(user);
+        
+    }//GEN-LAST:event_btCadastrarLixoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,17 +346,30 @@ public class LixeiraScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btCadastrarLixo;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonCarregarUsuario;
+    private javax.swing.JComboBox<Object> jComboBoxLixeiras;
     private javax.swing.JComboBox<String> jComboBoxTipoDeLixo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCelular;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelCapUtil;
+    private javax.swing.JLabel jLabelCapUtilizada;
+    private javax.swing.JLabel jLabelDigiteCelular;
+    private javax.swing.JLabel jLabelNomeUsuario;
+    private javax.swing.JLabel jLabelPontuacaoNome;
+    private javax.swing.JLabel jLabelPontuação;
+    private javax.swing.JLabel jLabelSelecionarLixeira;
+    private javax.swing.JLabel jLabelTipoDoLixo;
     private javax.swing.JLabel jLabelUsuario;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel jPanelDadosLixeira;
+    private javax.swing.JPanel jPanelDadosUsuario;
+    private javax.swing.JPanel jPanelDadosdoLixo;
+    private javax.swing.JLabel lbCapacidadeTotal;
+    private javax.swing.JLabel lbCapacidadeTotalResult;
     // End of variables declaration//GEN-END:variables
 }

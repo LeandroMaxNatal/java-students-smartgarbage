@@ -40,17 +40,29 @@ public class CadastroUsuarioScreen extends javax.swing.JFrame {
         jButtonCancelar = new javax.swing.JButton();
         jButtonLimpar = new javax.swing.JButton();
         jButtonCadastrar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelCelular = new javax.swing.JLabel();
+        jFormattedTextFieldCelular = new javax.swing.JFormattedTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuNavegacao = new javax.swing.JMenu();
+        jMenuItemTelaLogin = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de usuário"));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelNome.setText("Nome:");
+        jPanel1.add(jLabelNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 356, 32));
 
         jLabelEmail.setText("Email:");
+        jPanel1.add(jLabelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 356, 32));
 
         jLabelSenha.setText("Senha:");
+        jPanel1.add(jLabelSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+        jPanel1.add(jTextFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, -1));
+        jPanel1.add(jTextFieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 200, -1));
+        jPanel1.add(jPasswordFieldSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 200, -1));
 
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -58,6 +70,7 @@ public class CadastroUsuarioScreen extends javax.swing.JFrame {
                 jButtonCancelarActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -65,6 +78,7 @@ public class CadastroUsuarioScreen extends javax.swing.JFrame {
                 jButtonLimparActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, -1, -1));
 
         jButtonCadastrar.setText("Cadastrar");
         jButtonCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -72,84 +86,58 @@ public class CadastroUsuarioScreen extends javax.swing.JFrame {
                 jButtonCadastrarActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 84, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonCadastrar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonLimpar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(jButtonCancelar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabelSenha))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldNome)
-                            .addComponent(jTextFieldEmail)
-                            .addComponent(jPasswordFieldSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelSenha)
-                    .addComponent(jPasswordFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jButtonLimpar)
-                    .addComponent(jButtonCadastrar))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
+        jLabelCelular.setText("Celular:");
+        jPanel1.add(jLabelCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel1.setText("Cadastro de usuário");
+        try {
+            jFormattedTextFieldCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldCelular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldCelularActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jFormattedTextFieldCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 93, -1));
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenuNavegacao.setText("Navegação");
+
+        jMenuItemTelaLogin.setText("Tela de Login");
+        jMenuItemTelaLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTelaLoginActionPerformed(evt);
+            }
+        });
+        jMenuNavegacao.add(jMenuItemTelaLogin);
+
+        jMenuBar1.add(jMenuNavegacao);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel1)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(360, 257));
+        setSize(new java.awt.Dimension(276, 392));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -157,6 +145,7 @@ public class CadastroUsuarioScreen extends javax.swing.JFrame {
         jTextFieldNome.setText("");
         jTextFieldEmail.setText("");
         jPasswordFieldSenha.setText("");
+        jFormattedTextFieldCelular.setText("");
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
@@ -165,6 +154,13 @@ public class CadastroUsuarioScreen extends javax.swing.JFrame {
         user.setNome(jTextFieldNome.getText());
         user.setEmail(jTextFieldEmail.getText());
         user.setSenha(jPasswordFieldSenha.getText());
+        String celular = jFormattedTextFieldCelular.getText();
+        celular = celular.replace("(", "");
+        celular = celular.replace(")","");
+        celular = celular.replace("-","");
+        
+        user.setCelular(celular);
+        user.setPontuacao(0);
         dao.create(user);
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
@@ -173,6 +169,15 @@ public class CadastroUsuarioScreen extends javax.swing.JFrame {
         principalScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jMenuItemTelaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTelaLoginActionPerformed
+        new loginScreen().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItemTelaLoginActionPerformed
+
+    private void jFormattedTextFieldCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCelularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldCelularActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,10 +218,15 @@ public class CadastroUsuarioScreen extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonLimpar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCelular;
+    private javax.swing.JLabel jLabelCelular;
     private javax.swing.JLabel jLabelEmail;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelSenha;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemTelaLogin;
+    private javax.swing.JMenu jMenuNavegacao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordFieldSenha;
     private javax.swing.JTextField jTextFieldEmail;

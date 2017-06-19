@@ -55,6 +55,11 @@ public class Lixeira {
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
+
+    @Override
+    public String toString() {
+        return  Integer.toString(getId()); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

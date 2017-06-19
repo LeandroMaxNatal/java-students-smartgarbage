@@ -3,7 +3,10 @@ package model.dao;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -35,6 +38,36 @@ public class LixeiraDAO
             ConnectionFactory.closeConnection(con, stmt);
         }
         
+    }
+    
+    public List<Lixeira> read()
+    {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Lixeira> lixeiras = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM lixeiras");
+            rs = stmt.executeQuery();
+        
+            while(rs.next())
+            {
+                Lixeira lixeira = new Lixeira();
+                
+                lixeira.setId(rs.getInt("id"));
+                lixeira.setCapacidadeTotal(rs.getInt("capacidade_total"));
+                lixeira.setCapacidadeUtilizada(rs.getInt("capacidade_utilizada"));
+                lixeira.setLatitude(rs.getString("latitude"));
+                lixeira.setLongitude(rs.getString("longitude"));
+                
+                lixeiras.add(lixeira);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LixeiraDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lixeiras;
     }
     
 }
