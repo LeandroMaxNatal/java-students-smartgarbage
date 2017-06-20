@@ -15,9 +15,11 @@ import model.dao.UsuarioDAO;
  * @author Leandro Max
  */
 public class LixeiraScreen extends javax.swing.JFrame {
-
+    
     Usuario user;
     private Usuario activeUser;
+    private Lixeira lixeira;
+    
     /**
      * Creates new form LixeiraScreen
      */
@@ -33,7 +35,10 @@ public class LixeiraScreen extends javax.swing.JFrame {
         }
     }
     
-    // Contrutor 2
+    /**
+     * Contrutor 2 
+     * @param activeUser 
+     */
     public LixeiraScreen(Usuario activeUser)
     {
         initComponents();
@@ -65,7 +70,7 @@ public class LixeiraScreen extends javax.swing.JFrame {
         jPanelDadosLixeira = new javax.swing.JPanel();
         jLabelSelecionarLixeira = new javax.swing.JLabel();
         jComboBoxLixeiras = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        jButtonCarregaLixeira = new javax.swing.JButton();
         jLabelCapUtilizada = new javax.swing.JLabel();
         jLabelCapUtil = new javax.swing.JLabel();
         lbCapacidadeTotal = new javax.swing.JLabel();
@@ -108,10 +113,10 @@ public class LixeiraScreen extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Carregar Lixeira");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCarregaLixeira.setText("Carregar Lixeira");
+        jButtonCarregaLixeira.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonCarregaLixeiraActionPerformed(evt);
             }
         });
 
@@ -138,7 +143,7 @@ public class LixeiraScreen extends javax.swing.JFrame {
                     .addGroup(jPanelDadosLixeiraLayout.createSequentialGroup()
                         .addComponent(jComboBoxLixeiras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))
+                        .addComponent(jButtonCarregaLixeira))
                     .addComponent(lbCapacidadeTotalResult))
                 .addGap(0, 112, Short.MAX_VALUE))
         );
@@ -148,7 +153,7 @@ public class LixeiraScreen extends javax.swing.JFrame {
                 .addGroup(jPanelDadosLixeiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSelecionarLixeira)
                     .addComponent(jComboBoxLixeiras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(jButtonCarregaLixeira))
                 .addGap(9, 9, 9)
                 .addGroup(jPanelDadosLixeiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbCapacidadeTotal)
@@ -327,11 +332,15 @@ public class LixeiraScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxLixeirasActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Lixeira lixeira = (Lixeira) jComboBoxLixeiras.getSelectedItem(); 
+    private void jButtonCarregaLixeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarregaLixeiraActionPerformed
+        LixeiraDAO dao = new LixeiraDAO();
+        lixeira = new Lixeira();
+        lixeira = (Lixeira)jComboBoxLixeiras.getSelectedItem();
+        lixeira = dao.getLixeiraById(lixeira.getId());
+        System.out.println("Lixeira ID: " + lixeira.getId() + "Capacidade total: " + lixeira.getCapacidadeTotal() + "Cap Util: " + lixeira.getCapacidadeUtilizada() );
         lbCapacidadeTotalResult.setText(Integer.toString(lixeira.getCapacidadeTotal()));
         jLabelCapUtilizada.setText(Integer.toString(lixeira.getCapacidadeUtilizada()));
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonCarregaLixeiraActionPerformed
 
     private void jButtonCarregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarregarUsuarioActionPerformed
         UsuarioDAO dao = new UsuarioDAO();
@@ -344,15 +353,16 @@ public class LixeiraScreen extends javax.swing.JFrame {
  
         activeUser = dao.getUserByTel(tel);
         jlUsuarioNome.setText(activeUser.getNome());
-        jlPontuacaoUsuario.setText(Integer.toString(activeUser.getPontuacao()));
-        //user = dao.getUserByTel(tel);
-        //jlUsuarioNome.setText(user.getNome());
-        //jlPontuacaoUsuario.setText(Integer.toString(user.getPontuacao())); 
+        jlPontuacaoUsuario.setText(Integer.toString(activeUser.getPontuacao())); 
     }//GEN-LAST:event_jButtonCarregarUsuarioActionPerformed
 
     private void btCadastrarLixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarLixoActionPerformed
         UsuarioDAO dao = new UsuarioDAO();
+        LixeiraDAO lixeiraDao = new LixeiraDAO();
         dao.updateScore(activeUser.getId(),activeUser.getPontuacao());
+        System.out.println("CAPACIDADE DA LIXEIRA: "+ Integer.toString(this.lixeira.getCapacidadeUtilizada()));
+        lixeiraDao.updateCapacityUsed(this.lixeira.getId(),this.lixeira.getCapacidadeUtilizada());
+        jButtonCarregaLixeira.doClick();
         jButtonCarregarUsuario.doClick();
     }//GEN-LAST:event_btCadastrarLixoActionPerformed
 
@@ -399,7 +409,7 @@ public class LixeiraScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCadastrarLixo;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonCarregaLixeira;
     private javax.swing.JButton jButtonCarregarUsuario;
     private javax.swing.JComboBox<Object> jComboBoxLixeiras;
     private javax.swing.JComboBox<String> jComboBoxTipoDeLixo;

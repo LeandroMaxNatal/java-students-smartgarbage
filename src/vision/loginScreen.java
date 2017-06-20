@@ -19,8 +19,10 @@ public class loginScreen extends javax.swing.JFrame {
     /**
      * Creates new form loginScreen
      */
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public loginScreen() {
         initComponents();
+        getRootPane().setDefaultButton(jButtonAcessar);
     }
 
     /**
