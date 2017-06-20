@@ -5,6 +5,8 @@
  */
 package vision;
 
+import control.SistemaDeColeta;
+import javax.swing.JOptionPane;
 import model.bean.Lixeira;
 import model.bean.Usuario;
 import model.dao.LixeiraDAO;
@@ -357,13 +359,23 @@ public class LixeiraScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCarregarUsuarioActionPerformed
 
     private void btCadastrarLixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarLixoActionPerformed
-        UsuarioDAO dao = new UsuarioDAO();
         LixeiraDAO lixeiraDao = new LixeiraDAO();
-        dao.updateScore(activeUser.getId(),activeUser.getPontuacao());
-        System.out.println("CAPACIDADE DA LIXEIRA: "+ Integer.toString(this.lixeira.getCapacidadeUtilizada()));
-        lixeiraDao.updateCapacityUsed(this.lixeira.getId(),this.lixeira.getCapacidadeUtilizada());
-        jButtonCarregaLixeira.doClick();
-        jButtonCarregarUsuario.doClick();
+        if(!lixeiraDao.isFull(lixeira.getId()))
+        {
+            UsuarioDAO dao = new UsuarioDAO();
+            
+            dao.updateScore(activeUser.getId(),activeUser.getPontuacao());
+            System.out.println("CAPACIDADE DA LIXEIRA: "+ Integer.toString(this.lixeira.getCapacidadeUtilizada()));
+            lixeiraDao.updateCapacityUsed(this.lixeira.getId(),this.lixeira.getCapacidadeUtilizada());
+            jButtonCarregaLixeira.doClick();
+            jButtonCarregarUsuario.doClick();
+        } else {
+            JOptionPane.showMessageDialog(null, "Lixeria cheia");
+            SistemaDeColeta sdc = new SistemaDeColeta();
+            sdc.EsvaziaLixeira(lixeira);
+            jButtonCarregaLixeira.doClick();
+            jButtonCarregarUsuario.doClick();
+        }
     }//GEN-LAST:event_btCadastrarLixoActionPerformed
 
     private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed

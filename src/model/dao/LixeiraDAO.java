@@ -66,6 +66,40 @@ public class LixeiraDAO
         }
     }
     
+    public boolean isFull(int id)
+    {
+        // Variável de teste;
+        boolean check = false;
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt =  null;
+        ResultSet rs = null;
+        
+        String sql = "select * from lixeiras where id = ?";
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            
+            Lixeira lixeira = new Lixeira();
+            
+            if(rs.next())
+            {
+                int cap_tot = rs.getInt("capacidade_total");
+                int cap_utl = rs.getInt("capacidade_utilizada");
+                // Testa se a capacidade é menor que a lixeira.
+                if( cap_utl >= cap_tot  )
+                {
+                    check = true;
+                    System.out.println("A lixeira esta cheia");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LixeiraDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                     
+        return check;
+    }
+    
     
     public Lixeira getLixeiraById(int id)
     {
